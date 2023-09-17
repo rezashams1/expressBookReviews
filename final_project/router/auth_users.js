@@ -39,6 +39,7 @@ regd_users.post("/login", (req,res) => {
 
     if (authenticatedUser(username, password)) {
         let accessToken = jwt.sign({
+            username,
             data: password
         }, 'access', { expiresIn: 60 * 60 });
 
@@ -58,6 +59,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     const review = req.body.review;
     const book = books[isbn];
 
+    console.log(req.user);
     if (!review) {
         return res.status(400).json({message: "Review is required!"});
     } 
